@@ -1,0 +1,8 @@
+prefix=/root/catkin_ws/devel
+
+Name: using_markers
+Description: Description of using_markers
+Version: 0.0.0
+Cflags: -I/root/catkin_ws/devel/include
+Libs: -L/root/catkin_ws/devel/lib -lusing_markers
+Requires: roscpp visualization_msgs
