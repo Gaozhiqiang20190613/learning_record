@@ -40,8 +40,14 @@ geometry_msgs/TwistWithCovariance twist
 ```
 echo "<msg_type> <member_name>" >
 ```
+|检索|作用|一般|
+|:-:|:-:|:-:|
+|搜寻find_package(catkin|添加包的依赖库（包括信息依赖与其他依赖|roscpp</br>rospy</br>std_msgs</br>generate_messages|
+|catkin_package|添加信息依赖|message_runtime|
+|add_message_files|添加信息文件|\|
+|generate_messages|生成工程中的|std_msgs|
 
-### 1.2 srv文件
+##  1.2 srv文件
 &#8195;&#8195;srv的消息类型同msg文件的消息类型相同，不同的地方在于src文件的内容格式划分为两个部分，这两个部分使用“---”进行隔开
 ### 1.1.1 srv文件的编写规则
 ```
