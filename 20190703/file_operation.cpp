@@ -1,3 +1,4 @@
+/*### Test Two ###*/
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
@@ -14,6 +15,19 @@ public:
     return rand() % dis + start;
   }
 
+  void print_info(float obj[], int length)
+  {
+    for(int l=0; l<length; l++){
+      if(l == (length-1)){
+        cout << obj[l];
+      }
+      else{
+        cout << obj[l] << ", ";
+      }
+    }
+    cout << ")" << endl;
+  }
+
   //创建文件
   void create_file()
   {
@@ -26,23 +40,52 @@ public:
     }
 
     //随机生成点的个数
-    i = Random(1,100);
+    i = 1000;
+    //i = Random(1,100);
     object detect_now[i];
 
-    //向存储结构中存入数据
-    for(int j = 0; j < i; j++)
+    for(int j=0;j<200; j++)
     {
-      //detect_now.timer = ;
-      for(int k = 0; k < 6; k=k+2)
-      {
-        detect_now[j].detect[k] = Random(1,100);
-        detect_now[j].detect[k+1] = Random(detect_now[j].detect[k]+1,detect_now[j].detect[k]+5);
-      }
+        detect_now[j].detect[0] = 20+j;
+        detect_now[j].detect[1] = 20+j;
+        detect_now[j].detect[2] = 230;
+        detect_now[j].detect[3] = 230;
+        detect_now[j].detect[4] = 0;
+        detect_now[j].detect[5] = 0;
+
+        detect_now[j+500].detect[0] = 20+j;
+        detect_now[j+500].detect[1] = 20+j;
+        detect_now[j+500].detect[2] = 530;
+        detect_now[j+500].detect[3] = 530;
+        detect_now[j+500].detect[4] = 0;
+        detect_now[j+500].detect[5] = 0;
+    }
+
+
+    for(int j=200; j<500; j++)
+    {
+        detect_now[j].detect[0] = 20;
+        detect_now[j].detect[1] = 20;
+        detect_now[j].detect[2] = 30+j;
+        detect_now[j].detect[3] = 30+j;
+        detect_now[j].detect[4] = 0;
+        detect_now[j].detect[5] = 0;
+
+        detect_now[j+500].detect[0] = 20+199;
+        detect_now[j+500].detect[1] = 20+199;
+        detect_now[j+500].detect[2] = 30+j;
+        detect_now[j+500].detect[3] = 30+j;
+        detect_now[j+500].detect[4] = 0;
+        detect_now[j+500].detect[5] = 0;
     }
 
     for(int j = 0; j < i; j++)
     {
-      outfile << " " << detect_now[j].detect[0] << " " << detect_now[j].detect[1] << " " << detect_now[j].detect[2] << " " << detect_now[j].detect[3] << " " << detect_now[j].detect[4] << " " << detect_now[j].detect[5] << '\n';
+      //将障碍物上的坐标信息写入文件
+      for(int l=0; l<6; l++){
+        outfile<< " " << detect_now[j].detect[l];
+      }
+      outfile << endl;
     }
     //关闭文件
     outfile.close();
@@ -50,109 +93,146 @@ public:
 
   void read_cal()
   {
-    int x, y, z;
-    if(n >= 100)
-    {
-      n = 0;
-    }
-    x = n;
-    y = n;
-    z = 0;
+
+    float volume[3];
+    //重置目标点的坐标
+    float target[3] = {0, 0, 0};
+    target[0] = -18;//Random(20, 230);
+    target[1] = 350;//Random(230, 530);
+    target[2] = 100;
+
+    //打开数据文件
     ifstream infile("detectfile.txt", ios::in);
-    if(!infile)
-    {
+    if(!infile){
       cerr << "open error2!" << endl;
       abort();
     }
+
+    //定义存储结构
     object_pose pose[i];
     object print_now[i];
-    for(int j = 0; j < i; j++)
-    {
-      //infile.read((char *)&print_now[j], sizeof(print_now[j]));
-      infile >> print_now[j].detect[0] >> print_now[j].detect[1] >> print_now[j].detect[2] >> print_now[j].detect[3] >> print_now[j].detect[4] >> print_now[j].detect[5];
-      //cout << " " << print_now[j].detect[0] << " " << print_now[j].detect[1] << " " << print_now[j].detect[2] << " " << print_now[j].detect[3] << " " << print_now[j].detect[4] << " " << print_now[j].detect[5] << '\n';
-      pose[j].point[0] = print_now[j].detect[0];
-      pose[j].point[1] = print_now[j].detect[2];
-      pose[j].point[2] = print_now[j].detect[4];
-      pose[j].volume[0] = abs(print_now[j].detect[1] - print_now[j].detect[0]);
-      pose[j].volume[1] = abs(print_now[j].detect[3] - print_now[j].detect[2]);
-      pose[j].volume[2] = abs(print_now[j].detect[5] - print_now[j].detect[4]);
+    for(int j = 0; j < i; j++){
+      //获取文件中的数据//需优化
+      for(int l=0; l<6; l++){
+        infile >> print_now[j].detect[l];
+      }
+
+      //整理障碍物数据//已优化
+      for(int l=0; l<3; l++){
+        pose[j].point[l] = print_now[j].detect[l*2];
+        pose[j].volume[l] = abs(print_now[j].detect[2*l+1] - print_now[j].detect[2*l]);
+        //计算障碍物与目标的距离，并记录最小距离//已优化
+      }
       //cout << "Point "<< j+1 << "(" << pose[j].point[0] << ", " << pose[j].point[1] << ", " << pose[j].point[2] << ")" << "  " << "Volume:"<< pose[j].volume[0] << "*" << pose[j].volume[1] << "*" << pose[j].volume[2] << '\n';
-      a = abs(x - pose[j].point[0]);
-      b = abs(y - pose[j].point[1]);
-      c = abs(z - pose[j].point[2]);
-      l = a*a+b*b+c*c;
+      orgl = 0;
+      for(int l=0; l<3; l++){
+        volume[l] = abs(target[l] - pose[j].point[l]);
+        orgl = volume[l]*volume[l] + orgl;
+      }
+
+      //初始赋值
       if(j == 0)
       {
-        minl = l;
+        minl = orgl;
       }
       else
       {
-        if(minl > l)
+        if(minl > orgl)
         {
-          minl = l;
+          minl = orgl;
           m = j;
         }
       }
+
     }
 
-    ofstream outfile("detectfile2.txt", ios::out);
-    if(!outfile)
-    {
+    //write python file
+    ofstream outfile("detectfile.py", ios::out);
+    if(!outfile){
       cerr<<"open error!"<<endl;
       exit(1);
     }
 
+    outfile << "import matplotlib.pyplot as plt" << endl;
+    outfile << "import numpy as np" << endl;
+
+    cout << endl;
 
     cout << "This time have " << i << " points" << endl;
-    outfile << "x = {";
-    for(int j = 0; j < i; j++)
-    {
-      outfile << pose[j].point[0] << ", ";
+    outfile << "x = [";
+    for(int j = 0; j < i; j++){
+      if(j == (i-1)){
+        outfile << pose[j].point[0];
+      }
+      else{
+        outfile << pose[j].point[0] << ", ";
+      }
     }
-    outfile << "}" << '\n';
-    outfile << "y = {";
-    for(int j = 0; j < i; j++)
-    {
-      outfile << pose[j].point[1] << ", ";
+    outfile << "]" << '\n';
+    outfile << "y = [";
+    for(int j = 0; j < i; j++){
+      if(j == (i-1)){
+        outfile << pose[j].point[1];
+      }
+      else{
+        outfile << pose[j].point[1] << ", ";
+      }
+      //outfile << pose[j].point[1] << ", ";
     }
-    outfile << "}" << '\n';
+    outfile << "]" << '\n';
+    outfile << "m = [" << target[0] << ", " << pose[m].point[0] << "]" << endl;
+    outfile << "n = [" << target[1] << ", " << pose[m].point[1] << "]" << endl;
+    outfile << "plt.plot(m, n, 'b-o')" << endl;
+    outfile << "plt.plot(x, y, 'r-o')" << endl;
+    outfile << "plt.show()" << endl;
+    outfile.close();
 
-    cout << "The target point:(" << x << ", " << y << ", " << z << ")" << endl;
-    cout << "The near one:(" << pose[m].point[0] << ", " << pose[m].point[1] << ", " << pose[m].point[2] << ")" << endl;
-    cout << "its volume is "<< pose[m].volume[0] << "*" << pose[m].volume[1] <<"*" << pose[m].volume[2] << " cm^3" << endl;
+    //输出目标点
+    cout << "The target point:(";
+    print_info(target, 3);
+    //输出临近点
+    cout << "The near one:(" ;
+    for(int l=0; l<3; l++){
+      if(l == (2)){
+        cout << pose[m].point[l];
+      }
+      else{
+        cout << pose[m].point[l] << ", ";
+      }
+    }
+    cout << ")" << endl;
+    //打印物体体积
+    cout << "its volume is ";//<< pose[m].volume[0] << "*" << pose[m].volume[1] <<"*" << pose[m].volume[2] << " cm^3" << endl;//需优化
+    print_info(pose[m].volume, 3);
+    //输出最短距离
     cout <<"They distant is:" << sqrt(minl) << endl;
     ++n;
   }
 
-
 private:
   int i;     //points number
-  int l;     //distant
-  int minl;  //min distant
+  float orgl;     //distant
+  float minl;  //min distant
   int m;     //mark
   int a, b, c;  //distant calculator
-  int n;
+  float n;
+  float shapel;
+  float shaped;
 
   struct object{
-    //time;
-    int detect[6];
+    float detect[6];
   };
 
   struct object_pose{
-    //time;
-    int point[3];
-    int volume[3];
+    float point[3];
+    float volume[3];
   };
 };
 
 int main()
 {
   FileRW Obj;
-  //while(1)
-  //{
     Obj.create_file();
     Obj.read_cal();
-  //}
   return 0;
 }
