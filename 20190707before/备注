@@ -1,0 +1,5 @@
+创建链接
+$ mkdir /home/zm/for_share
+$ sudo apt install sshfs
+$ sshfs ubuntu@192.168.10.150:/home/ubuntu/for_share  '/home/zm/for_huangyus'
+输入对方主机密码
