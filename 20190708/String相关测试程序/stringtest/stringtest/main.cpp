@@ -1,31 +1,29 @@
 #include <cstddef>
 #include <iosfwd>
-#include <istream>  //?
-#include <string.h>  //strlen、strcpy、strcat other?
+#include <istream>
+#include <string.h>
 #include <iostream>
-
 using std::istream;
 using std::ostream;
-
 class String {
   private:
     /* data */
     char *data;    //字符串
-    size_t length; //长度   size_t包含在cstddef头文件中
+    size_t length; //长度
 
   public:
     String(const char *str = NULL); //默认构造函数    nullptr空指针
     String(const String &str);         //拷贝构造函数
 
-    friend class String;   //?
+    friend class String;
     friend istream &operator>>(istream &is, String &str);
     friend ostream &operator<<(ostream &os, String &str);
 
-    String operator+(const String &str) const; //重载+   ?为什么后面加cosnt？？ 传地址
-    String &operator=(const String &str);      //重载=    传数据
-    String &operator+=(const String &str);     //重载+=    传数据
-    bool operator==(const String &str) const;  //重载==   ?为什么后面加cosnt？？ 传地址
-    char &operator[](int n) const;             //重载[]   ?为什么后面加cosnt？？ 传数据
+    String operator+(const String &str) const; //重载+
+    String &operator=(const String &str);      //重载=
+    String &operator+=(const String &str);     //重载+=
+    bool operator==(const String &str) const;  //重载==
+    char &operator[](int n) const;             //重载[]
 
     size_t size() const;       //获取长度
     const char *c_str() const; //获取C字符串
@@ -34,6 +32,7 @@ class String {
 };
 
 String::String(const char *str) { //通用构造函数
+    //str = nullptr;
     if (!str) {
         length = 0;
         data = new char[1];
@@ -130,10 +129,8 @@ ostream &operator<<(ostream &os, String &str) //输出
 
 int main()
 {
-  String a("jahsgbdfa");
-  String b("sgbdfa");
-  String c;
-  b += a;
-  std::cout << b.c_str() << std::endl;
-  return 0;
+    using namespace std;
+    String a("sasdafsas");
+    cout << a.c_str()<< endl;
+    return 0;
 }
