@@ -34,6 +34,7 @@ class String {
 };
 
 String::String(const char *str) { //通用构造函数
+  //判断传递的字符串是否为空，为空则直接存储结尾标志符
     if (!str) {
         length = 0;
         data = new char[1];
@@ -45,6 +46,7 @@ String::String(const char *str) { //通用构造函数
     }
 }
 String::String(const String &str) { //拷贝构造函数
+  //生成this？？？？？？？？
     length = str.size();
     data = new char[length + 1];
     strcpy(data, str.c_str());
@@ -77,7 +79,7 @@ String &String::operator=(const String &str) //重载+
     return *this;
 }
 
-String &String::operator+=(const String &str) //重载+
+String &String::operator+=(const String &str) //重载+=
 {
     length += str.size();
     char *newData = new char[length + 1];
@@ -137,3 +139,8 @@ int main()
   std::cout << b.c_str() << std::endl;
   return 0;
 }
+
+/*
++与+=的构造区别：
++为三个量之间的关系,运算后的值复制给新量，而+=为两个量之间的关系，运算后的量覆盖前面的量;
+*/
