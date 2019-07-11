@@ -1,0 +1,37 @@
+
+小任务：
+
+1.ubuntu下安装以下资源：
+wps
+https://zhidao.baidu.com/question/1772499453620807340.html
+ntp 做局域网下时钟同步
+https://blog.csdn.net/b_x_p/article/details/78547798
+notepad/sublime
+
+Eigen
+protobuf
+安装matlab(可选)
+
+2.操作：
+用linux指令搜索文件名及文件内容 （建议用 find 及 grep）
+https://www.cnblogs.com/yuanchaoyong/p/7241708.html
+熟悉play bag 包常用指令
+ROS分布式通信配置。
+
+编写一个ROS的topic通信互发工具。
+参数服务器熟悉，并编写程序做通信。
+熟悉最简单的protobuf使用（安装、编译、编写通信程序）
+发送固定的tf
+
+批处理工具：
+你们有什么文本批处理的大法吗？
+用什么绘图工具
+
+算法及程序操作：
+编写寻找最近点算法
+编写文本读写c++程序
+
+看教程文档
+
+
+
