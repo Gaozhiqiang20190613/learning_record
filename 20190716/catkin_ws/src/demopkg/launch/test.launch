@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="demopkg" type="getpoint" name="getpoint" output="screen">
+</launch>

@@ -1,0 +1,2 @@
+demopkg
+-DCATKIN_DEVEL_PREFIX=/home/zm/github/learning_record/20190716/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/zm/github/learning_record/20190716/catkin_ws/install -G Unix Makefiles

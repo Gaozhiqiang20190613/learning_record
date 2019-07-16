@@ -1,0 +1,8 @@
+prefix=/home/zm/catkin_ws/install
+
+Name: demopkg
+Description: Description of demopkg
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/zm/catkin_ws/install/lib 
+Requires: 
