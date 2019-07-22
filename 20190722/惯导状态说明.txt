@@ -1,0 +1,28 @@
+mpst:
+
+[ WARN] [1561012873.049468895, 1455208803.506117427]: odom message over time  
+连续几百毫秒没有收到收据
+[ WARN] [1561012873.687181239, 1455208804.136449919]: GNSS'STATUS IS CAREFUL 0 
+-1 表示无效
+0 无RTK
+1 有RTK
+
+
+
+SDI:
+使用ros内的一套状态说明：
+int8 STATUS_NO_FIX =  -1        # 无法确定位置
+NOT_AVAILABLE
+
+int8 STATUS_FIX =      0        # 未能精准定位
+SPS_MODE
+
+int8 STATUS_SBAS_FIX = 1        # with satellite-based augmentation
+PPS_MODE || DIFFERENTIAL_GPS
+
+int8 STATUS_GBAS_FIX = 2        # with ground-based augmentatio
+FIXED_RTK || FLOAT_RTK)
+
+
+
+最好是看 打印出来的RMS,因为以上状态是基于RMS获取的。
