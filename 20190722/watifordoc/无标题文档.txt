@@ -1,0 +1,56 @@
+标定条件：
+惯导的标定流程需要在以下条件进行，后续的标定流程默认满足本条件。
+1.页面Receiver Status->INS Status页面下的Status栏下的GNSS Mode状态为INS(RTK)
+图Screenshot from 2016-02-10-01-52-12.png
+2.页面I/O Configuration页面下NTRIP Client1栏为绿色
+图Screenshot from 2016-02-12 01-52-31.png
+3.在终端下运行命令
+$ping www.baidu.com
+网络延时小于100
+截图Screenshot from 2016-02-12 02-05-40.png
+
+环节一：
+该环节用于对IMU和base_link之间进行标定，计算两个坐标系之间的偏差
+1.点击Receiver Configuration->INS->General，对GAMS取消勾选，取消双天线工作模式，进行单天线工作，点击OK进行保存；
+图Screenshot from 2016-02-12 00-56-12.png
+2.打开串口工具CuteCom，并打开设备，对记录数据的地址进行选择，勾选记录日志；
+图Screenshot from 2016-02-12 02-20-35.png
+3.启动车辆，以50km/h左右的速度行驶15分钟左右（满足在Receiver Status->INS Status页面中的Velocity项初步估计大于7m/s，可以11m/s的速度进行行驶）；
+图Screenshot from 2016-02-12 02-14-41.png
+4.当15分钟过后，关闭串口设备，找到串口所记录的数据包，通过网线传输到携带的电脑上，使用matlab，运行GSOFtestallnew.m文件读取串口数据进行计算（偏差 = heading - track）；
+图Screenshot from 2016-02-12 02-20-35.png
+5.最后将MATLAB所计算到的数据填入相应的位置（Receiver Configuration->INS页面中的Mounting Angles下的Reference to IMU Mounting Angles[Deg]的Z[Yaw]后的空格，注意为负时添加负号），点击OK进行保存，即完成第一轮标定。
+图Screenshot from 2016-02-12 02-51-24.png
+
+环节二：
+该环节用于得到GPS与base_link之间的偏差
+1.测量以下几组数据；
+    IMU位置
+       IMU在base_link坐标系中的位置（x，y，z）等长度值
+    GPS位置
+       主天线在base_link中的位置（x，y，z）等长度值以及主副天线之间的距离
+2.将上述测量数据填入以下页面位置
+    将GPS主天线坐标值填写到Receiver Configuration->INS页面中的GNSS Lever Arm栏的Reference to Primary GNSS Lever Arm[m]下坐标对应的框，但1-delta 框填0.03，随后将主副天线之间的距离填到Primary to Secondary GNSS Baseline Vector[m]栏的y对应的框，1-delta框填0.03，点击OK进行保存。
+    图Screenshot from 2016-02-12 00-56-36.png
+    将IMU所测得的在base link中的坐标值填到Receiver Configuration->INS页面中的IMU Lever Arm栏下的Reference to IMU Lever Arm下坐标栏点击OK进行保存；
+    图Screenshot from 2016-02-12 00-56-41.png
+3.打开串口工具CuteCom，并打开设备，对记录数据的地址进行选择，勾选记录日志；
+图Screenshot from 2016-02-12 02-20-35.png
+4.启动车辆，以50km/h左右的速度行驶15分钟左右（满足在Receiver Status->INS Status页面中的Velocity项初步估计大于7m/s，可以11m/s的速度进行行驶）；
+图Screenshot from 2016-02-12 02-14-41.png
+5.当15分钟过后，关闭串口设备，找到串口所记录的数据包，通过网线传输到携带的电脑上，使用matlab，运行GSOFtestallnew.m文件读取串口数据进行计算（偏差 = heading - track）；
+图Screenshot from 2016-02-12 02-20-35.png
+6.此时通过matlab运算得到GPS主副天线同base link姿态上的偏差角theta，将该偏差角转换为平移量，即计算得到x=y*theta*3.1415926/180得到副天线在主天线的x轴上的偏移量，填到Receiver Configuration->INS页面中的GNSS Lever Arm栏的Primary to Secondary GNSS Baseline Vector[m]栏的x对应的框，点击OK进行保存，此时完成第二轮标定。
+图Screenshot from 2016-02-12 00-56-36.png
+
+环节三：
+该环节为使用程序修正几组所测得的数据，以保证数据的较高的精度
+1.启动车辆进行，这里对速度与时间没有要求，此时查看Receiver Status->INS Status下的Position、Attitude、Velocity的标准差均稳定在较小值；
+2.当标准差维持在一个较小值的时候，观察Receiver Configuration->INS页面下的GNSS Lever Arm栏下的Current Estimate[m]若与前面的数据变化较大，则通过“<<”赋值到前面，点击OK进行保存；若变化不大，则整个惯导标定的过程结束。
+
+准备工具
+工具   用处
+matlab  计算坐标系的偏差
+电脑    由于TX2芯片架构原因，导致只支持x86的matlab无法装在工程车上，因此计算标定偏差只能使用x86架构的电脑来进行运行
+网线    将TX2从惯导串口中读取的数据转移到电脑上，以用于计算姿态偏差
+GSOFtestallnew.m   该文件由七维惯导厂商所提供，用于计算姿态偏差
