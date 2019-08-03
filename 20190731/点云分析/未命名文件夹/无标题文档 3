@@ -1,0 +1,39 @@
+%环2
+ring32 = new;
+ring32(ring32(:,5) ~= 32,:) = [];
+ring32hh = ring32;
+ring32bh = ring32;
+ring32hh(ring32hh(:,4) > 180,:) = [];
+ring32bh(ring32bh(:,4) < 180,:) = [];
+% figure(3);
+x1 = ring32hh(:,6).*cos(ring32hh(:,4).*pi/180);
+y1 = ring32hh(:,6).*sin(ring32hh(:,4).*pi/180);
+plot(x1,y1,'o');
+
+pp = csape(x1,y1);
+hold on;
+% plot(x1, fnval(pp,x1),'g');
+pp1 = fnval(fnder(pp,1),x1);  %求一阶导
+pp2 = fnval(fnder(pp,2),x1);  %求二阶导
+
+curvature = abs(pp2) ./ sqrt((1+pp1 .^ 2) .^ 3);
+ring32hh(:,7) = curvature;
+% plot(x1, curvature, 'r');
+% legend('原始离散点', 'Spline拟合结果', '曲率图');
+% grid on
+% figure(4);
+x1 = ring32bh(:,6).*cos(ring32bh(:,4).*pi/180);
+y1 = ring32bh(:,6).*sin(ring32bh(:,4).*pi/180);
+plot(x1,y1,'o');
+
+pp = csape(x1,y1);
+hold on;
+% plot(x1, fnval(pp,x1),'g');
+pp1 = fnval(fnder(pp,1),x1);  %求一阶导
+pp2 = fnval(fnder(pp,2),x1);  %求二阶导
+
+curvature = abs(pp2) ./ sqrt((1+pp1 .^ 2) .^ 3);
+ring32bh(:,7) = curvature;
+% plot(x1, curvature, 'r');
+% legend('原始离散点', 'Spline拟合结果', '曲率图');
+% grid on

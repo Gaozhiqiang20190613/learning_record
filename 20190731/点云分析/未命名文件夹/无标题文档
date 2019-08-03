@@ -1,0 +1,130 @@
+boundary_grid_num: 1
+calibration_mode: always
+calibration_state: ongoing
+calibration_switch: enable
+closed_loop_state: false
+gear: pending
+gnss_state: good
+mean_dis: 0.09732766803368491
+mean_dis_opt: pending
+mean_dis_selected: 0.09732766803368491
+mean_dis_selected_threshold: 0.2 
+navigation_input: GNSS
+sample_length: 507
+sample_length_opt: pending
+sample_length_selected: 507
+slam_delay: 0.009346485137939453
+slam_delay_mean: 0.0174165229274802
+time_diff_min_index: 8
+track_length: 209.43821734460118
+utm: [254364.6635664552, 3366832.6203545537, 19.753297805786133]
+vehicle_state: moving:52
+velocity_gnss: 4.121925112110456
+velocity_vehicle: pending
+word_IO_state: matrix_file_not_exist_use_default_value
+At time 1455208437.511
+- Translation: [1.146, -0.086, -0.948]
+- Rotation: in Quaternion [-0.003, 0.009, 0.021, 1.000]
+            in RPY (radian) [-0.007, 0.019, 0.042]
+            in RPY (degree) [-0.375, 1.096, 2.431]
+
+
+优选
+boundary_grid_num: 1
+calibration_mode: always
+calibration_state: ongoing
+calibration_switch: enable
+closed_loop_state: false
+gear: pending
+gnss_state: good
+mean_dis: 0.12642603842601152
+mean_dis_opt: 0.12261805812058946
+mean_dis_selected: 0.12642603842601152
+mean_dis_selected_threshold: 0.2 
+navigation_input: GNSS
+sample_length: 858
+sample_length_opt: 816
+sample_length_selected: 858
+slam_delay: -0.00098419189453125
+slam_delay_mean: 0.019995447808662376
+time_diff_min_index: 9
+track_length: 351.8957403274279
+utm: [254314.54109372763, 3366931.8620303883, 19.68050193786621]
+vehicle_state: moving:91
+velocity_gnss: 3.153382234149364
+velocity_vehicle: pending
+word_IO_state: matrix_file_not_exist_use_default_value
+At time 1455208476.588
+- Translation: [1.041, 0.029, -0.827]
+- Rotation: in Quaternion [-0.003, 0.016, 0.020, 1.000]
+            in RPY (radian) [-0.005, 0.033, 0.041]
+            in RPY (degree) [-0.279, 1.897, 2.344]
+
+boundary_grid_num: 1
+calibration_mode: always
+calibration_state: ongoing
+calibration_switch: enable
+closed_loop_state: false
+gear: pending
+gnss_state: good
+mean_dis: 0.1818634181010562
+mean_dis_opt: 0.12261805812058946
+mean_dis_selected: 0.1818634181010562
+mean_dis_selected_threshold: 0.2 
+navigation_input: GNSS
+sample_length: 879
+sample_length_opt: 816
+sample_length_selected: 879
+slam_delay: 0.06031918525695801
+slam_delay_mean: 0.020835848866551664
+time_diff_min_index: 3
+track_length: 360.36947769661765
+utm: [254306.70453917186, 3366934.6012558662, 19.684112548828125]
+vehicle_state: moving:94
+velocity_gnss: 2.6686797074420725
+velocity_vehicle: pending
+word_IO_state: matrix_file_not_exist_use_default_value
+At time 1455208478.583
+- Translation: [1.083, -0.065, -0.811]
+- Rotation: in Quaternion [-0.005, 0.017, 0.025, 1.000]
+            in RPY (radian) [-0.010, 0.034, 0.049]
+            in RPY (degree) [-0.548, 1.940, 2.834]
+
+boundary_grid_num: 1
+calibration_mode: always
+calibration_state: ongoing
+calibration_switch: enable
+closed_loop_state: true
+gear: pending
+gnss_state: good
+mean_dis: 0.7753876304307874
+mean_dis_opt: 0.12261805812058946
+mean_dis_selected: 0.195369915482875
+mean_dis_selected_threshold: 0.44999999999999996
+navigation_input: GNSS
+sample_length: 1173
+sample_length_opt: 816
+sample_length_selected: 987
+slam_delay: 0.0467982292175293
+slam_delay_mean: 0.049232101044714247
+time_diff_min_index: 5
+track_length: 569.5457199975701
+utm: [254263.83894989156, 3366791.505294275, 19.586477279663086]
+vehicle_state: moving:151
+velocity_gnss: 4.111500645022467
+velocity_vehicle: pending
+word_IO_state: matrix_file_not_exist_use_default_value
+At time 1455208535.920
+- Translation: [1.037, -0.091, -0.939]
+- Rotation: in Quaternion [-0.009, 0.013, 0.020, 1.000]
+            in RPY (radian) [-0.018, 0.025, 0.040]
+            in RPY (degree) [-1.015, 1.456, 2.286]
+
+
+At time 1455208604.505
+- Translation: [1.008, -0.053, -1.456]
+- Rotation: in Quaternion [-0.005, 0.013, 0.025, 1.000]
+            in RPY (radian) [-0.010, 0.026, 0.050]
+            in RPY (degree) [-0.549, 1.465, 2.854]
+
+
